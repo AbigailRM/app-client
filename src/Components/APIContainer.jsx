@@ -2,28 +2,6 @@ import React, { Component } from "react";
 
 import axios from "axios";
 
-export default class APIContainer extends Component {
-  state = {
-    loading: true,
-    articles: [],
-  };
-
-  componentDidMount() {
-    axios
-      .get(
-        `https://newsapi.org/v2/everything?q=bitcoin&apiKey=27dc1ba606de45d09d6977c9149eac27`
-      )
-      .then((res) => {
-        this.setState({
-          articles: res.data.articles,
-          loading: false,
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div className="container">
         <div className="row">
           {this.state.articles.map((article) => {
             return (
@@ -47,18 +25,18 @@ export default class APIContainer extends Component {
                     </p>
                     <a
                       href={article.url}
-                      //   target="_blank"
-                      className="btn btn-primary"
-                    >
-                      Show Entire Article
-                    </a>
-                  </div>
+                    // target="_blank"
+                    className="btn btn-outline-primary"
+                  >
+                    Show Entire Article
+                  </a>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
-    );
-  }
+    </div>
+  );
+}
 }
