@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 export default function APIContainer(props) {
   // handleFormatPDate = (dateValue) => {
@@ -10,6 +11,11 @@ export default function APIContainer(props) {
   //   let publishedAt;
   // };
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const articlePerPage = 20;
+  const pagesVisited = pageNumber * articlePerPage;
+
   return (
     <div className="mt-3">
       {props.loading ? (
@@ -19,45 +25,46 @@ export default function APIContainer(props) {
       ) : null}
 
       <div className="row">
-        {props.articles.map((article) => {
-          return (
-            <div className="col-md-3 ">
-              <div className="card mt-3">
-                <img
-                  src={article.urlToImage ?? "./SecImage.jpg"}
-                  className="card-img-top"
-                  alt="Nothing to Show."
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{article.title}</h5>
+        {props.articles
+          .slice(pagesVisited, pagesVisited + articlePerPage)
+          .map((article) => {
+            return (
+              <div className="col-md-3 ">
+                <div className="card mt-3">
+                  <img
+                    src={article.urlToImage ?? "./SecImage.jpg"}
+                    className="card-img-top"
+                    alt="Nothing to Show."
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{article.title}</h5>
+                    <p className="card-text">
+                      {article.description}
+                      <div>
+                        <h5 id="publishedAt">
+                          <br />
+                          Published At: {Date(article.publishedAt)}
+                        </h5>
+                        <p className="card-subtitle author">
+                          Author: {article.author ?? "Unknown"}
+                        </p>
+                      </div>
+                    </p>
+                  </div>
 
-                  <p className="card-text">
-                    {article.description}
-                    <div>
-                      <h5 id="publishedAt">
-                        <br />
-                        Published At: {Date(article.publishedAt)}
-                      </h5>
-                      <p className="card-subtitle author">
-                        Author: {article.author ?? "Unknown"}
-                      </p>
-                    </div>
-                  </p>
-                </div>
-
-                <div className="card-footer">
-                  <a
-                    href={article.url}
-                    target="blank"
-                    className="btn btn-outline-primary"
-                  >
-                    Show Entire Article
-                  </a>
+                  <div className="card-footer">
+                    <a
+                      href={article.url}
+                      target="blank"
+                      className="btn btn-outline-primary"
+                    >
+                      Show Entire Article
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
