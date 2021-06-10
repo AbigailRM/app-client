@@ -1,31 +1,54 @@
-import React, { Component } from "react";
+import React from "react";
 
-import axios from "axios";
+export default function APIContainer(props) {
+  // handleFormatPDate = (dateValue) => {
+  //   let srcDate = new Date(dateValue);
+  //   let yearDate = yearDate(srcDate);
+  //   let monthDate = monthDate(srcDate);
+  //   let dayDate = dayDate(srcDate);
 
-        <div className="row">
-          {this.state.articles.map((article) => {
-            return (
-              <div className="col-md-3 ">
-                <div className="card mb-2">
-                  <img
-                    src={article.urlToImage ?? "/SecImage.jpg"}
-                    className="card-img-top"
-                    alt="Nothing to Show."
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{article.title}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted d-flex">
-                      Author: {article.author}
-                    </h6>
-                    <p className="card-text">
-                      {article.description}
-                      <br />
-                      <br />
-                      {Date(article.publishedAt)}
-                    </p>
-                    <a
-                      href={article.url}
-                    // target="_blank"
+  //   let publishedAt;
+  // };
+
+  return (
+    <div className="mt-3">
+      {props.loading ? (
+        <div className="loading">
+          <img src="/Comp-2.gif" />
+        </div>
+      ) : null}
+
+      <div className="row">
+        {props.articles.map((article) => {
+          return (
+            <div className="col-md-3 ">
+              <div className="card mt-3">
+                <img
+                  src={article.urlToImage ?? "./SecImage.jpg"}
+                  className="card-img-top"
+                  alt="Nothing to Show."
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{article.title}</h5>
+
+                  <p className="card-text">
+                    {article.description}
+                    <div>
+                      <h5 id="publishedAt">
+                        <br />
+                        Published At: {Date(article.publishedAt)}
+                      </h5>
+                      <p className="card-subtitle author">
+                        Author: {article.author ?? "Unknown"}
+                      </p>
+                    </div>
+                  </p>
+                </div>
+
+                <div className="card-footer">
+                  <a
+                    href={article.url}
+                    target="blank"
                     className="btn btn-outline-primary"
                   >
                     Show Entire Article
@@ -38,5 +61,4 @@ import axios from "axios";
       </div>
     </div>
   );
-}
 }
