@@ -4,17 +4,24 @@ import ReactPaginate from "react-paginate";
 export default function APIContainer(props) {
   // handleFormatPDate = (dateValue) => {
   //   let srcDate = new Date(dateValue);
-  //   let yearDate = yearDate(srcDate);
-  //   let monthDate = monthDate(srcDate);
-  //   let dayDate = dayDate(srcDate);
+  //   let yearDate = srcDate.getFullYear();
+  //   let monthDate = srcDate.getMonth();
+  //   let dayDate = srcDate.getDate();
+  //   let PublishedDate = yearDate + "-" + monthDate + "-" + dayDate;
 
-  //   let publishedAt;
+  //   return PublishedDate;
   // };
 
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 20;
   const pagesVisited = pageNumber * articlePerPage;
+
+  const pageCount = Math.ceil(props.articles.length / articlePerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <div className="mt-3">
@@ -45,7 +52,7 @@ export default function APIContainer(props) {
                           <br />
                           Published At: {Date(article.publishedAt)}
                         </h5>
-                        <p className="card-subtitle author">
+                        <p className="card-subtitle author ">
                           Author: {article.author ?? "Unknown"}
                         </p>
                       </div>
@@ -65,6 +72,23 @@ export default function APIContainer(props) {
               </div>
             );
           })}
+
+        <div>
+          <br></br>
+
+          <ReactPaginate
+            color="primary"
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previusBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        </div>
       </div>
     </div>
   );

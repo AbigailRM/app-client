@@ -67,7 +67,7 @@ export default class App extends Component {
         </div>
         <div className="container" id="containerNews">
           <APIContainer
-            articles={currentArticle}
+            articles={this.state.articles}
             loading={this.state.loading}
           />
         </div>
