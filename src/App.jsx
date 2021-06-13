@@ -13,21 +13,39 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.handleSearch(null);
+    this.handleSearch(null, null, null);
   }
 
   handleNewsFilterSearch = (value) => {
-    this.handleSearch(value);
+    this.handleSearch(value, null, null);
   };
 
-  handleSearch = (value) => {
+  handleCategory = (value) => {
+    this.handleSearch(null, value, null);
+  };
+
+  handleCountry = (value) => {
+    this.handleSearch(null, value, null);
+  };
+
+  handleSearch = (value, valueCat, valueCount) => {
     let url =
       "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100";
 
-    if (value != null) {
+    if (value != null && valueCat == null && valueCount == null) {
       url =
         "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&q=" +
         value;
+    }
+    if (value == null && valueCat != null && valueCount == null) {
+      url =
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&category=" +
+        valueCat;
+    }
+    if (value == null && valueCat == null && valueCount != null) {
+      url =
+        "https://newsapi.org/v2/top-headlines?apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&country=" +
+        valueCount;
     }
 
     axios
@@ -63,7 +81,7 @@ export default class App extends Component {
           </div>
         </header>
         <div>
-          <NavbarComponent />
+          <NavbarComponent onSearch={this.handleCategory} />
         </div>
         <div className="container" id="containerNews">
           <APIContainer
