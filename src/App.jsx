@@ -3,7 +3,8 @@ import "./AppCSS.css";
 import axios from "axios";
 import SearchNews from "./Components/SearchNews";
 import React, { Component } from "react";
-import NavbarComponent from "./Components/NavbarComponent";
+import CountrySelect from "./Components/CountrySelect";
+import CategorySelect from "./Components/CategorySelect";
 
 export default class App extends Component {
   state = {
@@ -25,29 +26,43 @@ export default class App extends Component {
   };
 
   handleCountry = (value) => {
-    this.handleSearch(null, value, null);
+    this.handleSearch(null, null, value);
   };
 
   handleSearch = (value, valueCat, valueCount) => {
     let url =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100";
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100";
 
-    if (value != null && valueCat == null && valueCount == null) {
+    if (value != null && valueCat == null && valueCount != null) {
       url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&q=" +
-        value;
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
+        value +
+        "&country=" +
+        valueCount;
+    }
+    if (value != null && valueCat == null && valueCount != null) {
+      url =
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
+        value +
+        "&country=" +
+        valueCount;
     }
     if (value == null && valueCat != null && valueCount == null) {
       url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&category=" +
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&category=" +
         valueCat;
     }
     if (value == null && valueCat == null && valueCount != null) {
       url =
-        "https://newsapi.org/v2/top-headlines?apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&country=" +
+        "https://newsapi.org/v2/top-headlines?apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&country=" +
         valueCount;
     }
-
+    if (value != null && valueCat == null && valueCount == null) {
+      url =
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
+        value;
+    }
+    console.log(url);
     axios
       .get(url)
       .then((res) => {
@@ -72,16 +87,18 @@ export default class App extends Component {
         <header className="d-flex">
           <div className="flex-grow-1">
             <div className="flex-grow-1">
-              <h1 id="headingAPP"> NEWS APP </h1>
+              <h1 className="headingAPP"> NEWS APP </h1>
             </div>
           </div>
 
           <div>
             <SearchNews onSearch={this.handleNewsFilterSearch} />
+            <br />
+            <CountrySelect onSearch={this.handleCountry} />
           </div>
         </header>
         <div>
-          <NavbarComponent onSearch={this.handleCategory} />
+          <CategorySelect onSearch={this.handleCategory} />
         </div>
         <div className="container" id="containerNews">
           <APIContainer

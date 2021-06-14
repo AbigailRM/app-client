@@ -17,8 +17,12 @@
   display: flex;
 }
 
-#publishedAt,
-author {
+#publishedAt {
+  text-align: end;
+  font-size: 1rem;
+}
+
+#author {
   text-align: end;
   font-size: 1rem;
 }
@@ -58,17 +62,22 @@ header {
   padding: 10px;
   margin: 8px;
   border-radius: 5px;
-  border: 1px solid #2b2eff;
-  color: blueviolet;
+  border: 1px solid maroon;
+  color: rgb(54, 21, 8);
   cursor: pointer;
 }
 
 .paginationBttns a:hover {
   color: white;
-  background-color: #2b2eff;
+  background-color: rgb(139, 44, 44);
 }
 
 .paginationActive a {
   color: white;
-  background-color: #2b2eff;
+  background-color: rgba(128, 0, 0, 0.521);
+}
+
+.bg-dark {
+  background-color: #212529 !important;
+  padding: 20px;
 }

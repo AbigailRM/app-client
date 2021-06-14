@@ -2,16 +2,6 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
 export default function APIContainer(props) {
-  // handleFormatPDate = (dateValue) => {
-  //   let srcDate = new Date(dateValue);
-  //   let yearDate = srcDate.getFullYear();
-  //   let monthDate = srcDate.getMonth();
-  //   let dayDate = srcDate.getDate();
-  //   let PublishedDate = yearDate + "-" + monthDate + "-" + dayDate;
-
-  //   return PublishedDate;
-  // };
-
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 20;
@@ -30,6 +20,22 @@ export default function APIContainer(props) {
           <img src="/Comp-2.gif" />
         </div>
       ) : null}
+
+      <div>
+        <ReactPaginate
+          color="primary"
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"paginationBttns"}
+          previousLinkClassName={"previusBttn"}
+          nextLinkClassName={"nextBttn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+        />
+        {/* <br></br> */}
+      </div>
 
       <div className="row">
         {props.articles
@@ -65,30 +71,13 @@ export default function APIContainer(props) {
                       target="blank"
                       className="btn btn-outline-primary"
                     >
-                      Show Entire Article
+                      More Details...
                     </a>
                   </div>
                 </div>
               </div>
             );
           })}
-
-        <div>
-          <br></br>
-
-          <ReactPaginate
-            color="primary"
-            previousLabel={"Previous"}
-            nextLabel={"Next"}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationBttns"}
-            previousLinkClassName={"previusBttn"}
-            nextLinkClassName={"nextBttn"}
-            disabledClassName={"paginationDisabled"}
-            activeClassName={"paginationActive"}
-          />
-        </div>
       </div>
     </div>
   );
