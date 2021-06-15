@@ -77,7 +77,13 @@ header {
   background-color: rgba(128, 0, 0, 0.521);
 }
 
-.bg-dark {
-  background-color: #212529 !important;
-  padding: 20px;
+.selectFilter {
+  margin-left: 40px;
+  padding-right: 20px;
+  width: 40%;
+}
+
+.catSelector {
+  background-color: black;
+  padding: 10px;
 }

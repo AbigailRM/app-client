@@ -5,6 +5,7 @@ import SearchNews from "./Components/SearchNews";
 import React, { Component } from "react";
 import CountrySelect from "./Components/CountrySelect";
 import CategorySelect from "./Components/CategorySelect";
+import Ordenamiento from "./Components/Ordenamiento";
 
 export default class App extends Component {
   state = {
@@ -14,55 +15,70 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.handleSearch(null, null, null);
+    this.handleSearch(null, null, null, null);
   }
 
   handleNewsFilterSearch = (value) => {
-    this.handleSearch(value, null, null);
+    this.handleSearch(value, null, null, null);
   };
 
   handleCategory = (value) => {
-    this.handleSearch(null, value, null);
+    this.handleSearch(null, value, null, null);
   };
 
   handleCountry = (value) => {
-    this.handleSearch(null, null, value);
+    this.handleSearch(null, null, value, null);
   };
 
-  handleSearch = (value, valueCat, valueCount) => {
-    let url =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100";
+  handleSortBy = (value) => {
+    this.handleSearch(null, null, null, value);
+  };
 
-    if (value != null && valueCat == null && valueCount != null) {
+  handleSearch = (value, valueCat, valueCount, valuesort) => {
+    let url =
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100";
+
+    if (
+      value != null &&
+      valueCat == null &&
+      valueCount == null &&
+      valuesort == null
+    ) {
       url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
-        value +
-        "&country=" +
-        valueCount;
-    }
-    if (value != null && valueCat == null && valueCount != null) {
-      url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
-        value +
-        "&country=" +
-        valueCount;
-    }
-    if (value == null && valueCat != null && valueCount == null) {
-      url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&category=" +
-        valueCat;
-    }
-    if (value == null && valueCat == null && valueCount != null) {
-      url =
-        "https://newsapi.org/v2/top-headlines?apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&country=" +
-        valueCount;
-    }
-    if (value != null && valueCat == null && valueCount == null) {
-      url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=aa260732d3494e1a88889c6ac1936146&pageSize=100&q=" +
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&q=" +
         value;
     }
-    console.log(url);
+    if (
+      value == null &&
+      valueCat != null &&
+      valueCount == null &&
+      valuesort == null
+    ) {
+      url =
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&category=" +
+        valueCat;
+    }
+    if (
+      value == null &&
+      valueCat == null &&
+      valueCount != null &&
+      valuesort == null
+    ) {
+      url =
+        "https://newsapi.org/v2/top-headlines?apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&country=" +
+        valueCount;
+    }
+    if (
+      value == null &&
+      valueCat == null &&
+      valueCount == null &&
+      valuesort != null
+    ) {
+      url =
+        "https://newsapi.org/v2/everything?q=news&apiKey=27dc1ba606de45d09d6977c9149eac27&sortBy=" +
+        valuesort;
+    }
+
     axios
       .get(url)
       .then((res) => {
@@ -90,16 +106,22 @@ export default class App extends Component {
               <h1 className="headingAPP"> NEWS APP </h1>
             </div>
           </div>
-
           <div>
             <SearchNews onSearch={this.handleNewsFilterSearch} />
             <br />
             <CountrySelect onSearch={this.handleCountry} />
           </div>
         </header>
-        <div>
-          <CategorySelect onSearch={this.handleCategory} />
+
+        <div className="d-flex catSelector">
+          <div className="flex-grow-1">
+            <CategorySelect onSearch={this.handleCategory} />
+          </div>
+          <div>
+            <Ordenamiento onSearch={this.handleSortBy} />
+          </div>
         </div>
+
         <div className="container" id="containerNews">
           <APIContainer
             articles={this.state.articles}
