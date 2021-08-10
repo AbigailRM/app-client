@@ -29,22 +29,21 @@ export default class App extends Component {
   };
 
   handleSearch = (value, valueCat, valueCount) => {
-    let url =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100";
+    let url = "https://localhost:44344/Api/Articles";
+
+    // axios.defaults.baseURL = url;
 
     if (value != null && valueCat == null && valueCount == null) {
-      url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&q=" +
-        value;
+      url = "https://localhost:44344/Api/Articles/";
     }
     if (value == null && valueCat != null && valueCount == null) {
       url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&category=" +
+        "https://localhost:44344/Api/Articles/" +
         valueCat;
     }
     if (value == null && valueCat == null && valueCount != null) {
       url =
-        "https://newsapi.org/v2/top-headlines?apiKey=27dc1ba606de45d09d6977c9149eac27&pageSize=100&country=" +
+        "https://localhost:44344/Api/Articles/" +
         valueCount;
     }
 
@@ -52,8 +51,8 @@ export default class App extends Component {
       .get(url)
       .then((res) => {
         this.setState({
-          articles: res.data.articles,
-          category: res.data.category,
+          articles: res.data,
+          // category: res.data.category,
           loading: false,
         });
       })

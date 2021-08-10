@@ -2,16 +2,6 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 
 export default function APIContainer(props) {
-  // handleFormatPDate = (dateValue) => {
-  //   let srcDate = new Date(dateValue);
-  //   let yearDate = srcDate.getFullYear();
-  //   let monthDate = srcDate.getMonth();
-  //   let dayDate = srcDate.getDate();
-  //   let PublishedDate = yearDate + "-" + monthDate + "-" + dayDate;
-
-  //   return PublishedDate;
-  // };
-
   const [pageNumber, setPageNumber] = useState(0);
 
   const articlePerPage = 20;
@@ -39,7 +29,7 @@ export default function APIContainer(props) {
               <div className="col-md-3 ">
                 <div className="card mt-3">
                   <img
-                    src={article.urlToImage ?? "./SecImage.jpg"}
+                    src={article.urltoImage ?? "./SecImage.jpg"}
                     className="card-img-top"
                     alt="Nothing to Show."
                   />
@@ -61,7 +51,7 @@ export default function APIContainer(props) {
 
                   <div className="card-footer">
                     <a
-                      href={article.url}
+                      href={article.urltoArticle}
                       target="blank"
                       className="btn btn-outline-primary"
                     >

@@ -26,9 +26,6 @@ export default class NavbarComponent extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          {/* <a className="navbar-brand" href="#">
-            NEWS APP
-          </a> */}
           <button
             className="navbar-toggler"
             type="button"
@@ -48,9 +45,6 @@ export default class NavbarComponent extends Component {
                 </a>
               </li>
               <li className="nav-item" style={{ width: "150px" }}>
-                {/* <a className="nav-link" name="category">
-                  Entertaiment
-                </a> */}
                 <button
                   type="button"
                   id="catentert"
@@ -61,13 +55,7 @@ export default class NavbarComponent extends Component {
                 </button>
               </li>
               <li className="nav-item" style={{ width: "150px" }}>
-                <a
-                  className="nav-link active"
-                  name="category"
-                  // onClick={() => {
-                  //   this.handleUrlCategory();
-                  // }}
-                >
+                <a className="nav-link active" name="category">
                   Business
                 </a>
               </li>
